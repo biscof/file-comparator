@@ -23,10 +23,7 @@ jobs:
         uses: paambaati/codeclimate-action@v3.2.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.TEST_REPORTER_ID }}
-          JACOCO_SOURCE_PATH: ${{github.workspace}}/src/main/java/hexlet/code ./cc-test-reporter \
-            format-coverage ${{github.workspace}}/build/reports/jacoco/test/jacocoTestReport.xml     \
-            --input-type jacoco
-            ./cc-test-reporter upload-coverage
+          JACOCO_SOURCE_PATH: "${{github.workspace}}/src/main/java/hexlet/code"
         with:
           coverageCommand: make -C app report
           coverageLocations: ${{github.workspace}}/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
