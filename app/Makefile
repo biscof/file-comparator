@@ -10,4 +10,7 @@ build:
 	gradle checkstyleMain
 	gradle checkstyleTest
 
+report:
+	gradle jacocoTestReport
+
 .PHONY: build
