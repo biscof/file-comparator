@@ -17,4 +17,4 @@ jobs:
       - name: Gradle Build Action
         uses: gradle/gradle-build-action@v2.4.0
 
-      - run: make build
+      - run: make -C app build
