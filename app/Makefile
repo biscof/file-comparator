@@ -3,6 +3,11 @@
 run-dist:
 	./build/install/app/bin/app
 
-prepare:
+build:
 	gradle clean
-	gradle installDist
+	gradle build
+	gradle test
+	gradle checkstyleMain
+	gradle checkstyleTest
+
+.PHONY: build
