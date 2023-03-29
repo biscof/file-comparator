@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -56,14 +59,15 @@ public class Differ {
                         return Stream.of(
                                 String.format("\n - %s: %s", e.getKey(), e.getValue()),
                                 String.format("\n + %s: %s", e.getKey(), map2.get(e.getKey())));
-                    }})
+                    }
+                })
                 .forEach(list1::add);
 
         // Convert the list of differences into a string, with the natural order preserved.
         // Changes in map1 shown first, if the value has been changed
         String listAsStr = list1.stream()
                 .sorted((e1, e2) -> {
-                    if (e1.substring(4, 5).equals(e2.substring(4, 5))) {
+                    if (e1.substring(4, e1.indexOf(":")).equals(e2.substring(4, e2.indexOf(":")))) {
                         // Get reverse order: "-" before "+"
                         return -(e1.substring(2, 3).compareTo(e2.substring(2, 3)));
                     }
