@@ -18,3 +18,12 @@ jobs:
         uses: gradle/gradle-build-action@v2.4.0
 
       - run: make -C app build
+
+      - name: Code Climate Coverage Action
+        uses: paambaati/codeclimate-action@v3.2.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.TEST_REPORTER_ID }}
+          JACOCO_SOURCE_PATH: app/src/main/java/hexlet/code
+        with:
+          coverageCommand: make -C app report
+          coverageLocations: app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
