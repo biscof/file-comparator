@@ -1,33 +1,16 @@
 package hexlet.code;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class Differ {
     public static String generate(String filepath1, String filepath2) {
-        Map<String, Object> map1 = new TreeMap<>();
-        Map<String, Object> map2 = new TreeMap<>();
-        ObjectMapper objectMapper = new ObjectMapper();
-        // Get normalised paths
-        Path readFile1Path = Paths.get(filepath1).toAbsolutePath().normalize();
-        Path readFile2Path = Paths.get(filepath2).toAbsolutePath().normalize();
+        Map<String, Object> map1 = Parser.convertToMap(filepath1);
+        Map<String, Object> map2 = Parser.convertToMap(filepath2);
 
-        try {
-            map1 = objectMapper.readValue(new File(readFile1Path.toString()), TreeMap.class);
-            map2 = objectMapper.readValue(new File(readFile2Path.toString()), TreeMap.class);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
         return compareMaps(map1, map2);
     }
 
