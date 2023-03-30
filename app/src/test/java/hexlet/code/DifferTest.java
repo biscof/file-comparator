@@ -21,12 +21,17 @@ class DifferTest {
                    surname: Smith
                  + title: Ms
                 }""";
-        String actual = Differ.generate(
+        String actualJson = Differ.generate(
                 "src/test/resources/test-file-1.1.json",
                 "src/test/resources/test-file-1.2.json"
         );
+        String actualYaml = Differ.generate(
+                "src/test/resources/test-file-1.1.yml",
+                "src/test/resources/test-file-1.2.yml"
+        );
 
-        assertEquals(expected, actual);
+        assertEquals(expected, actualJson);
+        assertEquals(expected, actualYaml);
     }
 
     @Test
@@ -34,12 +39,17 @@ class DifferTest {
         String expected = """
                 {
                 }""";
-        String actual = Differ.generate(
+        String actualJson = Differ.generate(
                 "src/test/resources/test-file-2.1.json",
                 "src/test/resources/test-file-2.2.json"
         );
+        String actualYaml = Differ.generate(
+                "src/test/resources/test-file-2.1.yml",
+                "src/test/resources/test-file-2.2.yml"
+        );
 
-        assertEquals(expected, actual);
+        assertEquals(expected, actualJson);
+        assertEquals(expected, actualYaml);
     }
 
     @Test
@@ -53,12 +63,17 @@ class DifferTest {
                  - surname: Smith
                  - title: Ms
                 }""";
-        String actual = Differ.generate(
+        String actualJson = Differ.generate(
                 "src/test/resources/test-file-3.1.json",
                 "src/test/resources/test-file-3.2.json"
         );
+        String actualYaml = Differ.generate(
+                "src/test/resources/test-file-3.1.yml",
+                "src/test/resources/test-file-3.2.yml"
+        );
 
-        assertEquals(expected, actual);
+        assertEquals(expected, actualJson);
+        assertEquals(expected, actualYaml);
     }
 
     @Test
@@ -71,11 +86,16 @@ class DifferTest {
                  + status: subscriber
                  + surname: Smith
                 }""";
-        String actual = Differ.generate(
+        String actualJson = Differ.generate(
                 "src/test/resources/test-file-4.1.json",
                 "src/test/resources/test-file-4.2.json"
         );
+        String actualYaml = Differ.generate(
+                "src/test/resources/test-file-4.1.yml",
+                "src/test/resources/test-file-4.2.yml"
+        );
 
-        assertEquals(expected, actual);
+        assertEquals(expected, actualJson);
+        assertEquals(expected, actualYaml);
     }
 }
