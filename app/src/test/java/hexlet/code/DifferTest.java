@@ -7,19 +7,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class DifferTest {
 
     @Test
-    void generateTwoFilesWithChangedContents() {
+    void generateTwoFilesWithChangedContentsTest() {
         String expected = """
                 {
-                 - age: 42
-                 + age: 35
-                 - name: John
-                 + name: Kate
-                 - sex: male
-                 + sex: female
-                 - status: subscriber
-                 + status:\s
-                   surname: Smith
-                 + title: Ms
+                  - age: 42
+                  + age: 35
+                  - name: John
+                  + name: Kate
+                  - sex: male
+                  + sex: female
+                  - status: subscriber
+                  + status:\s
+                    surname: Smith
+                  + title: Ms
                 }""";
         String actualJson = Differ.generate(
                 "src/test/resources/test-file-1.1.json",
@@ -35,7 +35,7 @@ class DifferTest {
     }
 
     @Test
-    void generateTwoEmpty() {
+    void generateTwoEmptyTest() {
         String expected = """
                 {
                 }""";
@@ -53,15 +53,15 @@ class DifferTest {
     }
 
     @Test
-    void generateAllDeleted() {
+    void generateAllDeletedTest() {
         String expected = """
                 {
-                 - age: 35
-                 - name: Kate
-                 - sex: female
-                 - status:\s
-                 - surname: Smith
-                 - title: Ms
+                  - age: 35
+                  - name: Kate
+                  - sex: female
+                  - status:\s
+                  - surname: Smith
+                  - title: Ms
                 }""";
         String actualJson = Differ.generate(
                 "src/test/resources/test-file-3.1.json",
@@ -77,14 +77,14 @@ class DifferTest {
     }
 
     @Test
-    void generateAllAdded() {
+    void generateAllAddedTest() {
         String expected = """
                 {
-                 + age: 42
-                 + name: John
-                 + sex: male
-                 + status: subscriber
-                 + surname: Smith
+                  + age: 42
+                  + name: John
+                  + sex: male
+                  + status: subscriber
+                  + surname: Smith
                 }""";
         String actualJson = Differ.generate(
                 "src/test/resources/test-file-4.1.json",
@@ -93,6 +93,47 @@ class DifferTest {
         String actualYaml = Differ.generate(
                 "src/test/resources/test-file-4.1.yml",
                 "src/test/resources/test-file-4.2.yml"
+        );
+
+        assertEquals(expected, actualJson);
+        assertEquals(expected, actualYaml);
+    }
+
+    @Test
+    void generateNestedTest() {
+        String expected = """
+                {
+                    chars1: [a, b, c]
+                  - chars2: [d, e, f]
+                  + chars2: false
+                  - checked: false
+                  + checked: true
+                  - default: null
+                  + default: [value1, value2]
+                  - id: 45
+                  + id: null
+                  - key1: value1
+                  + key2: value2
+                    numbers1: [1, 2, 3, 4]
+                  - numbers2: [2, 3, 4, 5]
+                  + numbers2: [22, 33, 44, 55]
+                  - numbers3: [3, 4, 5]
+                  + numbers4: [4, 5, 6]
+                  + obj1: {nestedKey=value, isNested=true}
+                  - setting1: Some value
+                  + setting1: Another value
+                  - setting2: 200
+                  + setting2: 300
+                  - setting3: true
+                  + setting3: none
+                }""";
+        String actualJson = Differ.generate(
+                "src/test/resources/test-file-5.1.json",
+                "src/test/resources/test-file-5.2.json"
+        );
+        String actualYaml = Differ.generate(
+                "src/test/resources/test-file-5.1.yml",
+                "src/test/resources/test-file-5.2.yml"
         );
 
         assertEquals(expected, actualJson);
