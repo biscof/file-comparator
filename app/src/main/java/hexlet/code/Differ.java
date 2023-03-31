@@ -1,15 +1,19 @@
 package hexlet.code;
 
-import java.util.*;
+import java.util.Map;
+import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class Differ {
     public static String generate(String filepath1, String filepath2) {
         Map<String, Object> map1 = Parser.convertToMap(filepath1);
         Map<String, Object> map2 = Parser.convertToMap(filepath2);
         Map<String, List<Object>> diffMap = generateDiff(map1, map2);
-        String diffStr = formatDiff(diffMap);
 
-        return diffStr;
+        return formatDiff(diffMap);
     }
 
     private static Map<String, List<Object>> generateDiff(Map<String, Object> map1, Map<String, Object> map2) {

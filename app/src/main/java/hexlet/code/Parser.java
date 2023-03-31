@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
@@ -26,7 +27,7 @@ public class Parser {
         }
 
         try {
-            map = objectMapper.readValue(new File(normalizedFilePath.toString()), TreeMap.class);
+            map = objectMapper.readValue(new File(normalizedFilePath.toString()), new TypeReference<>() { });
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
