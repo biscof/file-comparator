@@ -7,23 +7,15 @@ import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
+
 public class Differ {
     public static String generate(String filepath1, String filepath2, String format) {
         Map<String, Object> map1 = Parser.convertToMap(filepath1);
         Map<String, Object> map2 = Parser.convertToMap(filepath2);
         Map<String, List<Object>> diffMap;
-        String diffStr;
+        diffMap = generateDiff(map1, map2);
 
-        if (format.equals("stylish")) {
-            diffMap = generateDiff(map1, map2);
-            diffStr = formatDiff(diffMap);
-        } else if (format.equals("plain")) {
-            return "//todo";
-        } else {
-            throw new IllegalArgumentException("Invalid format.");
-        }
-
-        return diffStr;
+        return Formatter.format(diffMap, format);
     }
 
     public static String generate(String filepath1, String filepath2) {
@@ -57,25 +49,5 @@ public class Differ {
         }
 
         return diffMap;
-    }
-
-    private static String formatDiff(Map<String, List<Object>> diffMap) {
-        String diffStr = "{\n";
-
-        for (Map.Entry<String, List<Object>> entry : diffMap.entrySet()) {
-            if (entry.getValue().get(0) == null) {
-                diffStr = diffStr.concat(String.format("  + %s: %s\n", entry.getKey(), entry.getValue().get(1)));
-            } else if (entry.getValue().get(1) == null) {
-                diffStr = diffStr.concat(String.format("  - %s: %s\n", entry.getKey(), entry.getValue().get(0)));
-            } else if (entry.getValue().get(0).equals(entry.getValue().get(1))) {
-                diffStr = diffStr.concat(String.format("    %s: %s\n", entry.getKey(), entry.getValue().get(0)));
-            } else {
-                diffStr = diffStr.concat(String.format("  - %s: %s\n", entry.getKey(), entry.getValue().get(0)));
-                diffStr = diffStr.concat(String.format("  + %s: %s\n", entry.getKey(), entry.getValue().get(1)));
-            }
-        }
-
-        diffStr = diffStr.concat("}");
-        return diffStr;
     }
 }
