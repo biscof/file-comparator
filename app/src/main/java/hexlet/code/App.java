@@ -20,7 +20,9 @@ public class App implements Callable<String> {
             description = "path to the second file")
     private String filepath2;
 
-    @Option(names = {"-f", "--format"}, defaultValue = "stylish", description = "output format [default: ${DEFAULT-VALUE}]")
+    @Option(names = {"-f", "--format"},
+            defaultValue = "stylish",
+            description = "output format [default: ${DEFAULT-VALUE}]")
     private String format;
 
     @Override
