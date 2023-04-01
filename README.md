@@ -8,4 +8,5 @@
 [![asciicast](https://asciinema.org/a/CdibHBoblDqzJjsR2TkeUDrTO.svg)](https://asciinema.org/a/CdibHBoblDqzJjsR2TkeUDrTO)
 ### Performance recording (yml files)
 [![asciicast](https://asciinema.org/a/wsEql2jJzpiUqhWur8KqSeh7g.svg)](https://asciinema.org/a/wsEql2jJzpiUqhWur8KqSeh7g)
-
+### Performance recording (embeded objects)
+[![asciicast](https://asciinema.org/a/9seyreWnbqEGE2X65MS9ZfWhR.svg)](https://asciinema.org/a/9seyreWnbqEGE2X65MS9ZfWhR)
