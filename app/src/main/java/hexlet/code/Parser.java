@@ -34,4 +34,14 @@ public class Parser {
 
         return map;
     }
+
+    public static void convertToJSONFile(Map<String, Map<String, Object>> map, String fileName) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            File file = new File(String.format("./src/main/resources/%s", fileName));
+            objectMapper.writeValue(file, map);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
