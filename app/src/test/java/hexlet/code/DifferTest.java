@@ -1,6 +1,12 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -198,5 +204,34 @@ class DifferTest {
 
         assertEquals(expected, actualJson);
         assertEquals(expected, actualYaml);
+    }
+
+    @Test
+    void generateJSONStyleTest() {
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Object> expectedMap = new TreeMap<>();
+
+        try {
+            expectedMap = mapper.readValue(new File("./src/test/resources/test-file-6.1.json"), TreeMap.class);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        String expectedStr = "The differences have been saved in JASON file \"differences.json\".";
+        String actualJson = Differ.generate(
+                "src/test/resources/test-file-5.1.json",
+                "src/test/resources/test-file-5.2.json",
+                "json"
+        );
+        assertEquals(expectedStr, actualJson);
+        Map<String, Object> actualMap = new TreeMap<>();
+
+        try {
+            actualMap = mapper.readValue(new File("./src/main/resources/differences.json"), TreeMap.class);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        assertEquals(expectedMap.toString(), actualMap.toString());
+
     }
 }
