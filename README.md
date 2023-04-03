@@ -12,3 +12,5 @@
 [![asciicast](https://asciinema.org/a/9seyreWnbqEGE2X65MS9ZfWhR.svg)](https://asciinema.org/a/9seyreWnbqEGE2X65MS9ZfWhR)
 ### Performance recording (plain format)
 [![asciicast](https://asciinema.org/a/d9EktDQn9lfuDoHULTUotQd5E.svg)](https://asciinema.org/a/d9EktDQn9lfuDoHULTUotQd5E)
+### Performance recording (json format)
+[![asciicast](https://asciinema.org/a/kc7qHgdP8SQMoZc0YHwXHLVyO.svg)](https://asciinema.org/a/kc7qHgdP8SQMoZc0YHwXHLVyO)
