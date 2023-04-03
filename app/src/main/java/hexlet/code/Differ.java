@@ -18,6 +18,10 @@ public class Differ {
         return Formatter.format(diffMap, format);
     }
 
+    public static String generate(String filepath1, String filepath2) {
+        return generate(filepath1, filepath2, "stylish");
+    }
+
     private static Map<String, List<Object>> generateDiff(Map<String, Object> map1, Map<String, Object> map2) {
         Set<String> allKeys = new HashSet<>();
         allKeys.addAll(map1.keySet());
