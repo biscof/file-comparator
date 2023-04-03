@@ -217,21 +217,11 @@ class DifferTest {
             System.out.println(e.getMessage());
         }
 
-        String expectedStr = "The differences have been saved in JASON file \"differences.json\".";
-        String actualJson = Differ.generate(
+        String actualMap = Differ.generate(
                 "src/test/resources/test-file-5.1.json",
                 "src/test/resources/test-file-5.2.json",
                 "json"
         );
-        assertEquals(expectedStr, actualJson);
-        Map<String, Object> actualMap = new TreeMap<>();
-
-        try {
-            actualMap = mapper.readValue(new File("./src/main/resources/differences.json"), TreeMap.class);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
         assertEquals(expectedMap.toString(), actualMap.toString());
-
     }
 }
