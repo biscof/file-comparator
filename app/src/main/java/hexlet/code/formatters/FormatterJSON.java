@@ -1,14 +1,13 @@
 package hexlet.code.formatters;
 
-import hexlet.code.Parser;
-
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.TreeMap;
+
 public class FormatterJSON {
 
-    public static String format(Map<String, List<Object>> diffMap) {
+    public static Map<String, Map<String, Object>> format(Map<String, List<Object>> diffMap) {
         Map<String, Map<String, Object>> finalMap = new TreeMap<>();
         finalMap.put("added", new TreeMap<>());
         finalMap.put("changed", new TreeMap<>());
@@ -32,7 +31,6 @@ public class FormatterJSON {
             }
         }
 
-        Parser.convertToJSONFile(finalMap, "differences.json");
-        return "The differences have been saved in JASON file \"differences.json\".";
+        return finalMap;
     }
 }

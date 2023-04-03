@@ -10,14 +10,19 @@ import java.util.Map;
 public class Formatter {
 
     public static String format(Map<String, List<Object>> diffMap, String format) {
-        if (format.equals("stylish")) {
-            return FormatterStylish.format(diffMap);
-        } else if (format.equals("plain")) {
-            return FormatterPlain.format(diffMap);
-        } else if (format.equals("json")) {
-            return FormatterJSON.format(diffMap);
-        } else {
-            throw new IllegalArgumentException("Invalid format.");
+        switch (format) {
+            case "stylish" -> {
+                return FormatterStylish.format(diffMap);
+            }
+            case "plain" -> {
+                return FormatterPlain.format(diffMap);
+            }
+            case "json" -> {
+                Map<String, Map<String, Object>> jsonDiffMap = FormatterJSON.format(diffMap);
+                Parser.convertToJSONFile(jsonDiffMap, "differences.json");
+                return jsonDiffMap.toString();
+            }
+            default -> throw new IllegalArgumentException("Invalid format.");
         }
     }
 }
