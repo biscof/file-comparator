@@ -62,6 +62,6 @@ public class FormatterPlain {
             }
         }
 
-        return diffStr;
+        return diffStr.trim();
     }
 }
