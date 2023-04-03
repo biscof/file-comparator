@@ -1,5 +1,7 @@
 package hexlet.code.formatters;
 
+import org.json.JSONObject;
+
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
@@ -7,7 +9,7 @@ import java.util.TreeMap;
 
 public class FormatterJSON {
 
-    public static Map<String, Map<String, Object>> format(Map<String, List<Object>> diffMap) {
+    public static String format(Map<String, List<Object>> diffMap) {
         Map<String, Map<String, Object>> finalMap = new TreeMap<>();
         finalMap.put("added", new TreeMap<>());
         finalMap.put("changed", new TreeMap<>());
@@ -23,14 +25,21 @@ public class FormatterJSON {
                 finalMap.get("unchanged").put(entry.getKey(), entry.getValue().get(0));
             } else {
                 finalMap.get("changed").put(entry.getKey(), new ArrayList<>());
-                if (finalMap.get("changed").get(entry.getKey()) instanceof ArrayList<?>) {
-                    ArrayList<Object> list = (ArrayList) finalMap.get("changed").get(entry.getKey());
+                ArrayList<Object> list = (ArrayList) finalMap.get("changed").get(entry.getKey());
+                if (entry.getValue().get(0).equals("null")) {
+                    list.add(null);
+                } else {
                     list.add(entry.getValue().get(0));
+                }
+                if (entry.getValue().get(1).equals("null")) {
+                    list.add(null);
+                } else {
                     list.add(entry.getValue().get(1));
                 }
             }
         }
+        JSONObject json = new JSONObject(finalMap);
 
-        return finalMap;
+        return json.toString();
     }
 }

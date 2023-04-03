@@ -1,5 +1,6 @@
 package hexlet.code.formatters;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -25,15 +26,16 @@ class FormatterJSONTest {
         expectedMap.put("added", Map.of("name", "John"));
         expectedMap.put("changed", Map.of(
                 "age", List.of(25, 40),
-                "registered", List.of(true, "null"),
-                "status", List.of("null", "user")
+                "registered", new ArrayList<>() { { add(true); add(null); } },
+                "status", new ArrayList<>() { { add(null); add("user"); } }
                 )
         );
         expectedMap.put("deleted", Map.of("sex", "male"));
         expectedMap.put("unchanged", Map.of("score", 99));
+        JSONObject expectedJSON = new JSONObject(expectedMap);
 
-        Map<String, Map<String, Object>> actualMap = FormatterJSON.format(initMap);
+        String actualStr = FormatterJSON.format(initMap);
 
-        assertEquals(expectedMap, actualMap);
+        assertEquals(expectedJSON.toString(), actualStr);
     }
 }

@@ -18,9 +18,9 @@ public class Formatter {
                 return FormatterPlain.format(diffMap);
             }
             case "json" -> {
-                Map<String, Map<String, Object>> jsonDiffMap = FormatterJSON.format(diffMap);
-                Parser.convertToJSONFile(jsonDiffMap, "differences.json");
-                return jsonDiffMap.toString();
+                String formatStr = FormatterJSON.format(diffMap);
+                Parser.convertToJSONFile(formatStr, "differences.json");
+                return formatStr;
             }
             default -> throw new IllegalArgumentException("Invalid format.");
         }

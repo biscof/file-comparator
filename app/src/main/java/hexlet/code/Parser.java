@@ -35,11 +35,11 @@ public class Parser {
         return map;
     }
 
-    public static void convertToJSONFile(Map<String, Map<String, Object>> map, String fileName) {
+    public static void convertToJSONFile(String json, String fileName) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             File file = new File(fileName);
-            objectMapper.writeValue(file, map);
+            objectMapper.writeValue(file, json);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -216,11 +217,13 @@ class DifferTest {
             System.out.println(e.getMessage());
         }
 
-        String actualMap = Differ.generate(
+        JSONObject expectedJSON = new JSONObject(expectedMap);
+
+        String actualStr = Differ.generate(
                 "src/test/resources/test-file-5.1.json",
                 "src/test/resources/test-file-5.2.json",
                 "json"
         );
-        assertEquals(expectedMap.toString(), actualMap.toString());
+        assertEquals(expectedJSON.toString(), actualStr);
     }
 }
