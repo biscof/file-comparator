@@ -16,22 +16,22 @@ class FormatterJSONTest {
     void formatTest() {
         Map<String, List<Object>> initMap = new TreeMap<>();
         initMap.put("name", new ArrayList<>() { { add(null); add("John"); } });
-        initMap.put("age", List.of(25, 40));
+        initMap.put("age", List.of(0, 2));
         initMap.put("sex", new ArrayList<>() { { add("male"); add(null); } });
         initMap.put("status", List.of("null", "user"));
         initMap.put("registered", List.of(true, "null"));
-        initMap.put("score", List.of(99, 99));
+        initMap.put("score", List.of(1, 1));
 
         Map<String, Map<String, Object>> expectedMap = new TreeMap<>();
         expectedMap.put("added", Map.of("name", "John"));
         expectedMap.put("changed", Map.of(
-                "age", List.of(25, 40),
+                "age", List.of(0, 2),
                 "registered", new ArrayList<>() { { add(true); add(null); } },
                 "status", new ArrayList<>() { { add(null); add("user"); } }
                 )
         );
         expectedMap.put("deleted", Map.of("sex", "male"));
-        expectedMap.put("unchanged", Map.of("score", 99));
+        expectedMap.put("unchanged", Map.of("score", 1));
         JSONObject expectedJSON = new JSONObject(expectedMap);
 
         String actualStr = FormatterJSON.format(initMap);
