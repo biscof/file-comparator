@@ -1,17 +1,12 @@
 #Makefile
 
 prepare:
-	gradle clean
-	gradle installDist
+	./gradlew clean installDist
 
-build:
-	gradle clean
-	gradle build
-	gradle test
-	gradle checkstyleMain
-	gradle checkstyleTest
+build-and-check:
+	./gradlew clean build test checkstyleMain checkstyleTest
 
 report:
-	gradle jacocoTestReport
+	./gradlew jacocoTestReport
 
 .PHONY: build
