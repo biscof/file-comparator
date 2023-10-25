@@ -11,10 +11,10 @@ import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class DifferTest {
+class FileComparatorTest {
 
     @Test
-    void generateTwoFilesWithChangedContentsTest() {
+    void compareTwoFilesWithChangedContentsTest() {
         String expected = """
                 {
                   - age: 42
@@ -28,12 +28,12 @@ class DifferTest {
                     surname: Smith
                   + title: Ms
                 }""";
-        String actualJson = Differ.generate(
+        String actualJson = Formatter.format(
                 "src/test/resources/test-file-1.1.json",
                 "src/test/resources/test-file-1.2.json",
                 "stylish"
         );
-        String actualYaml = Differ.generate(
+        String actualYaml = Formatter.format(
                 "src/test/resources/test-file-1.1.yml",
                 "src/test/resources/test-file-1.2.yml",
                 "stylish"
@@ -48,12 +48,12 @@ class DifferTest {
         String expected = """
                 {
                 }""";
-        String actualJson = Differ.generate(
+        String actualJson = Formatter.format(
                 "src/test/resources/test-file-2.1.json",
                 "src/test/resources/test-file-2.2.json",
                 "stylish"
         );
-        String actualYaml = Differ.generate(
+        String actualYaml = Formatter.format(
                 "src/test/resources/test-file-2.1.yml",
                 "src/test/resources/test-file-2.2.yml",
                 "stylish"
@@ -74,12 +74,12 @@ class DifferTest {
                   - surname: Smith
                   - title: Ms
                 }""";
-        String actualJson = Differ.generate(
+        String actualJson = Formatter.format(
                 "src/test/resources/test-file-3.1.json",
                 "src/test/resources/test-file-3.2.json",
                 "stylish"
         );
-        String actualYaml = Differ.generate(
+        String actualYaml = Formatter.format(
                 "src/test/resources/test-file-3.1.yml",
                 "src/test/resources/test-file-3.2.yml",
                 "stylish"
@@ -99,12 +99,12 @@ class DifferTest {
                   + status: subscriber
                   + surname: Smith
                 }""";
-        String actualJson = Differ.generate(
+        String actualJson = Formatter.format(
                 "src/test/resources/test-file-4.1.json",
                 "src/test/resources/test-file-4.2.json",
                 "stylish"
         );
-        String actualYaml = Differ.generate(
+        String actualYaml = Formatter.format(
                 "src/test/resources/test-file-4.1.yml",
                 "src/test/resources/test-file-4.2.yml",
                 "stylish"
@@ -142,12 +142,12 @@ class DifferTest {
                   - setting3: true
                   + setting3: none
                 }""";
-        String actualJson = Differ.generate(
+        String actualJson = Formatter.format(
                 "src/test/resources/test-file-5.1.json",
                 "src/test/resources/test-file-5.2.json",
                 "stylish"
         );
-        String actualYaml = Differ.generate(
+        String actualYaml = Formatter.format(
                 "src/test/resources/test-file-5.1.yml",
                 "src/test/resources/test-file-5.2.yml",
                 "stylish"
@@ -173,12 +173,12 @@ class DifferTest {
             Property 'setting1' was updated. From 'Some value' to 'Another value'
             Property 'setting2' was updated. From 200 to 300
             Property 'setting3' was updated. From true to 'none'""";
-        String actualJson = Differ.generate(
+        String actualJson = Formatter.format(
                 "src/test/resources/test-file-5.1.json",
                 "src/test/resources/test-file-5.2.json",
                 "plain"
         );
-        String actualYaml = Differ.generate(
+        String actualYaml = Formatter.format(
                 "src/test/resources/test-file-5.1.yml",
                 "src/test/resources/test-file-5.2.yml",
                 "plain"
@@ -191,12 +191,12 @@ class DifferTest {
     @Test
     void generatePlainStyleEmptyTest() {
         String expected = "";
-        String actualJson = Differ.generate(
+        String actualJson = Formatter.format(
                 "src/test/resources/test-file-2.1.json",
                 "src/test/resources/test-file-2.2.json",
                 "plain"
         );
-        String actualYaml = Differ.generate(
+        String actualYaml = Formatter.format(
                 "src/test/resources/test-file-2.1.yml",
                 "src/test/resources/test-file-2.2.yml",
                 "plain"
@@ -219,7 +219,7 @@ class DifferTest {
 
         JSONObject expectedJSON = new JSONObject(expectedMap);
 
-        String actualStr = Differ.generate(
+        String actualStr = Formatter.format(
                 "src/test/resources/test-file-5.1.json",
                 "src/test/resources/test-file-5.2.json",
                 "json"
