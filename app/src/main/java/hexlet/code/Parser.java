@@ -4,30 +4,32 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
+import hexlet.code.exception.ExtensionNotSupportedException;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class Parser {
-    public static Map<String, Object> convertToMap(String filepath) {
+    public static Map<String, Object> extractMap(String filepath) throws ExtensionNotSupportedException {
         Map<String, Object> map = new TreeMap<>();
-        Path normalizedFilePath = Paths.get(filepath).toAbsolutePath().normalize();
-        String extension = FilenameUtils.getExtension(normalizedFilePath.toString());
+        String normalizedPathString = Paths.get(filepath).toAbsolutePath().normalize().toString();
+        String extension = FilenameUtils.getExtension(normalizedPathString);
         ObjectMapper objectMapper;
 
         if (extension.equals("json")) {
             objectMapper = new ObjectMapper();
-        } else {
+        } else if (extension.equals("yml") || extension.equals("yaml")) {
             objectMapper = new ObjectMapper(new YAMLFactory());
+        } else {
+            throw new ExtensionNotSupportedException();
         }
 
         try {
-            map = objectMapper.readValue(new File(normalizedFilePath.toString()), new TypeReference<>() { });
+            map = objectMapper.readValue(new File(normalizedPathString), new TypeReference<>() { });
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -35,11 +37,10 @@ public class Parser {
         return map;
     }
 
-    public static void convertToJSONFile(String json, String fileName) {
+    public static void saveAsJSON(String json, String fileName) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            File file = new File(fileName);
-            objectMapper.writeValue(file, json);
+            objectMapper.writeValue(new File(fileName), json);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
