@@ -4,23 +4,29 @@ import java.util.List;
 import java.util.Map;
 
 public class FormatterStylish {
+
     public static String format(Map<String, List<Object>> diffMap) {
-        String diffStr = "{\n";
+        StringBuilder formattedDiff = new StringBuilder("{\n");
 
         for (Map.Entry<String, List<Object>> entry : diffMap.entrySet()) {
-            if (entry.getValue().get(0) == null) {
-                diffStr = diffStr.concat(String.format("  + %s: %s\n", entry.getKey(), entry.getValue().get(1)));
-            } else if (entry.getValue().get(1) == null) {
-                diffStr = diffStr.concat(String.format("  - %s: %s\n", entry.getKey(), entry.getValue().get(0)));
-            } else if (entry.getValue().get(0).equals(entry.getValue().get(1))) {
-                diffStr = diffStr.concat(String.format("    %s: %s\n", entry.getKey(), entry.getValue().get(0)));
+            Object value1 = entry.getValue().get(0);
+            Object value2 = entry.getValue().get(1);
+            String key = entry.getKey();
+
+            if (value1 == null) {
+                formattedDiff.append(String.format("  + %s: %s\n", key, value2));
+            } else if (value2 == null) {
+                formattedDiff.append(String.format("  - %s: %s\n", key, value1));
+            } else if (value1.equals(value2)) {
+                formattedDiff.append(String.format("    %s: %s\n", key, value1));
             } else {
-                diffStr = diffStr.concat(String.format("  - %s: %s\n", entry.getKey(), entry.getValue().get(0)));
-                diffStr = diffStr.concat(String.format("  + %s: %s\n", entry.getKey(), entry.getValue().get(1)));
+                formattedDiff.append(String.format("  - %s: %s\n", key, value1));
+                formattedDiff.append(String.format("  + %s: %s\n", key, value2));
             }
         }
 
-        diffStr = diffStr.concat("}");
-        return diffStr;
+        formattedDiff.append("}");
+        return formattedDiff.toString();
     }
+
 }

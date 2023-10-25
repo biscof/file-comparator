@@ -17,29 +17,24 @@ public class FormatterJSON {
         finalMap.put("unchanged", new TreeMap<>());
 
         for (Map.Entry<String, List<Object>> entry : diffMap.entrySet()) {
-            if (entry.getValue().get(0) == null) {
-                finalMap.get("added").put(entry.getKey(), entry.getValue().get(1));
-            } else if (entry.getValue().get(1) == null) {
-                finalMap.get("deleted").put(entry.getKey(), entry.getValue().get(0));
-            } else if (entry.getValue().get(0).equals(entry.getValue().get(1))) {
-                finalMap.get("unchanged").put(entry.getKey(), entry.getValue().get(0));
+            Object value1 = entry.getValue().get(0);
+            Object value2 = entry.getValue().get(1);
+
+            if (value1 == null) {
+                finalMap.get("added").put(entry.getKey(), value2);
+            } else if (value2 == null) {
+                finalMap.get("deleted").put(entry.getKey(), value1);
+            } else if (value1.equals(value2)) {
+                finalMap.get("unchanged").put(entry.getKey(), value1);
             } else {
-                finalMap.get("changed").put(entry.getKey(), new ArrayList<>());
-                ArrayList<Object> list = (ArrayList) finalMap.get("changed").get(entry.getKey());
-                if (entry.getValue().get(0).equals("null")) {
-                    list.add(null);
-                } else {
-                    list.add(entry.getValue().get(0));
-                }
-                if (entry.getValue().get(1).equals("null")) {
-                    list.add(null);
-                } else {
-                    list.add(entry.getValue().get(1));
-                }
+                ArrayList<Object> list = new ArrayList<>();
+                list.add(value1.equals("null") ? null : value1);
+                list.add(value2.equals("null") ? null : value2);
+                finalMap.get("changed").put(entry.getKey(), list);
             }
         }
-        JSONObject json = new JSONObject(finalMap);
 
-        return json.toString();
+        return new JSONObject(finalMap).toString();
     }
+
 }
